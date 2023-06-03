@@ -1,0 +1,32 @@
+#include <Arduino.h>
+#include <SoftwareSerial.h>
+//Pinos de comunicacao serial com a ST Núcleo
+#define Pin_ST_NUCLEO_RX    5  //Pino D1 da placa Node MCU
+#define Pin_ST_NUCLEO_TX    4  //Pino D2 da placa Node MCU
+SoftwareSerial SSerial(Pin_ST_NUCLEO_RX, Pin_ST_NUCLEO_TX);
+
+void setup()
+{
+  // Open serial communications and wait for port to open:
+  Serial.begin(115200);
+  SSerial.begin(115200);
+
+  Serial.println("Serial by hardware!");
+
+  // set the data rate for the SoftwareSerial port
+  SSerial.println("Serial by software!");
+}
+
+void loop() // run over and over
+{
+  //IMPORTANTE: O codigo abaixo é apenas para demonstração. 
+  // Este codigo precisará ser removidou ou modificado para o projeto final!
+  if (SSerial.available()){
+    Serial.write(SSerial.read());
+    delay(1);
+  }
+  if (Serial.available()){
+    SSerial.write(Serial.read());
+    delay(1);
+  }
+}
